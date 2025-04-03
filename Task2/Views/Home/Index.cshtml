@@ -1,0 +1,93 @@
+﻿@*@model IEnumerable<Task2.RouteConfig>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Action Links</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+
+        <div class="container mt-5">
+            <div class="card shadow-lg p-4">
+                <h3 class="text-center mb-4">Manage Records</h3>
+                <div class="d-grid gap-3">
+                    @Html.ActionLink("Add First Record", "InsertRecord", null, new { @class = "btn btn-success fw-bold" })
+                    @Html.ActionLink("Total Salary", "TotalSalary", null, new { @class = "btn btn-warning fw-bold" })
+                    @Html.ActionLink(" DOB less than 01-01-2000", "FindDOB", null, new { @class = "btn btn-info fw-bold" })
+                    @Html.ActionLink(" count employees having Middle Name NULL", "CountMiddleName", null, new { @class = "btn btn-danger fw-bold" })
+
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    </body>
+    </html>*@
+
+
+
+@model IEnumerable<Task2.Models.EmployeeTask2>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <!-- Card Header -->
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Employee Records</h3>
+        </div>
+
+        <!-- Button Section -->
+        <div class="card-body">
+            <div class="d-flex justify-content-center flex-wrap gap-3 pb-3">
+                @Html.ActionLink("Add First Record", "InsertFirst", null, new { @class = "btn btn-success fw-bold" })
+                @Html.ActionLink("Add Multiple For Testing", "InsertMultiplePersons", null, new { @class = "btn btn-success fw-bold" })
+                @Html.ActionLink("Update FirstName to SQLPerson", "UpdateFirstName", null, new { @class = "btn btn-info fw-bold" })
+                @Html.ActionLink("Update All Middle Names to 'I'", "UpdateAllMiddleName", null, new { @class = "btn btn-info fw-bold" })
+                @Html.ActionLink("Delete Record (ID < 2)", "DeleteRecord", null, new { @class = "btn btn-danger fw-bold" })
+                @Html.ActionLink("Delete All Records", "DeleteAllRecords", null, new { @class = "btn btn-danger fw-bold" })
+            </div>
+
+            <!-- Table Section -->
+            <table class="table table-striped table-bordered text-center mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                        <th>@Html.DisplayNameFor(model => model.MiddleName)</th>
+                        <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                        <th>@Html.DisplayNameFor(model => model.DOB)</th>
+                        <th>@Html.DisplayNameFor(model => model.MobileNumber)</th>
+                        <th>@Html.DisplayNameFor(model => model.Address)</th>
+                        <th>@Html.DisplayNameFor(model => model.Salary)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MiddleName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DOB)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MobileNumber)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Salary)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
