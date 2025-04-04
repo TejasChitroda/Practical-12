@@ -52,12 +52,10 @@
         <!-- Button Section -->
         <div class="card-body">
             <div class="d-flex justify-content-center flex-wrap gap-3 pb-3">
-                @Html.ActionLink("Add First Record", "InsertFirst", null, new { @class = "btn btn-success fw-bold" })
-                @Html.ActionLink("Add Multiple For Testing", "InsertMultiplePersons", null, new { @class = "btn btn-success fw-bold" })
-                @Html.ActionLink("Update FirstName to SQLPerson", "UpdateFirstName", null, new { @class = "btn btn-info fw-bold" })
-                @Html.ActionLink("Update All Middle Names to 'I'", "UpdateAllMiddleName", null, new { @class = "btn btn-info fw-bold" })
-                @Html.ActionLink("Delete Record (ID < 2)", "DeleteRecord", null, new { @class = "btn btn-danger fw-bold" })
-                @Html.ActionLink("Delete All Records", "DeleteAllRecords", null, new { @class = "btn btn-danger fw-bold" })
+                @Html.ActionLink("Add First Record", "InsertRecord", null, new { @class = "btn btn-success fw-bold" })
+                @Html.ActionLink("Total Salary of Employee", "TotalSalary", null, new { @class = "btn btn-success fw-bold" })
+                @Html.ActionLink("DOB less than 01-01-2000", "FindDOB", null, new { @class = "btn btn-success fw-bold" })
+                @Html.ActionLink("Count MiddleName that are null", "CountMiddleName", null, new { @class = "btn btn-success fw-bold" })
             </div>
 
             <!-- Table Section -->

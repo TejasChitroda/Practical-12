@@ -19,7 +19,7 @@ namespace Task2.Controllers
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Employee";
+                string query = "SELECT * FROM EmployeeTask2";
                 SqlCommand cmd = new SqlCommand(query, connection);
 
                 connection.Open();
@@ -36,17 +36,14 @@ namespace Task2.Controllers
                         DOB = Convert.ToDateTime(reader["DOB"]),
                         MobileNumber = reader["MobileNumber"].ToString(),
                         Address = reader["Address"].ToString(),
-                        Salary = Convert.ToDecimal(reader["Salary"])
+                        Salary = Convert.ToDecimal(reader["Salary"].ToString())
 
                     });
                 }
-
                 connection.Close();
-
-
                 return View(employees);
             }
-            
+
         }
 
         // 1. INSERT a record into the table
@@ -54,23 +51,39 @@ namespace Task2.Controllers
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO EmployeeTask2 (FirstName,  LastName, DOB, MobileNumber, Address , Salary) VALUES(@FirstName, @LastName, @DOB, @MobileNumber, @Address , @Salary)";
-
-                SqlCommand cmd = new SqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@FirstName", "John");
-                //cmd.Parameters.AddWithValue("@MiddleName", "D");
-                cmd.Parameters.AddWithValue("@LastName", "Doe");
-                cmd.Parameters.AddWithValue("@DOB", DateTime.ParseExact("25-12-1990", "dd-MM-yyyy", null));
-                cmd.Parameters.AddWithValue("@MobileNumber", "1234567890");
-                cmd.Parameters.AddWithValue("@Address", "Ahmedabad");
-                cmd.Parameters.AddWithValue("@Salary", 50000);
+                string query = "INSERT INTO EmployeeTask2 (FirstName,MiddleName ,  LastName, DOB, MobileNumber, Address , Salary) VALUES(@FirstName,@MiddleName, @LastName, @DOB, @MobileNumber, @Address , @Salary)";
 
                 connection.Open();
-                cmd.ExecuteNonQuery();
+
+
+                List<(string FirstName, string MiddleName, string LastName, string DOB, string MobileNumber, string Address, int Salary)> employees = new List<(string, string, string, string, string, string, int)>
+                    {
+                        ("John", "D", "Doe", "25-12-1990", "1234567890", "Ahmedabad", 50000),
+                        ("Jane", null, "Smith", "10-06-1995", "9876543210", "Surat", 60000),
+                        ("Michael", "A", "Johnson", "15-08-1988", "7894561230", "Vadodara", 75000),
+                        ("Emily", null, "Brown", "05-04-1992", "4561237890", "Rajkot", 55000),
+                        ("David", "K", "Williams", "12-11-1985", "9638527410", "Bhavnagar", 80000)
+                    };
+
+                foreach (var emp in employees)
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@FirstName", emp.FirstName);
+                        cmd.Parameters.AddWithValue("@MiddleName", emp.MiddleName ?? (object)DBNull.Value); // Handle null values
+                        cmd.Parameters.AddWithValue("@LastName", emp.LastName);
+                        cmd.Parameters.AddWithValue("@DOB", DateTime.ParseExact(emp.DOB, "dd-MM-yyyy", null));
+                        cmd.Parameters.AddWithValue("@MobileNumber", emp.MobileNumber);
+                        cmd.Parameters.AddWithValue("@Address", emp.Address);
+                        cmd.Parameters.AddWithValue("@Salary", emp.Salary);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
                 connection.Close();
 
             }
-            return Content("Record Inserted");
+            return View();
         }
 
         // 2.  Write an SQL query to find the total amount of salaries
@@ -84,15 +97,17 @@ namespace Task2.Controllers
                 connection.Open();
                 var totalSalary = cmd.ExecuteScalar();
                 connection.Close();
-                return Content("Total Salary: " + totalSalary.ToString());
+
+                ViewBag.TotalSalary = totalSalary;
+                return View();
             }
-           
+
         }
 
         // 3. Write an SQL query to find all employees having DOB less than 01-01-2000
         public ActionResult FindDOB()
         {
-            using(SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "SELECT * FROM EmployeeTask2 WHERE DOB < @DOB";
                 SqlCommand cmd = new SqlCommand(query, connection);
@@ -105,7 +120,9 @@ namespace Task2.Controllers
                     employees.Add(reader["FirstName"].ToString() + " " + reader["LastName"].ToString());
                 }
                 connection.Close();
-                return Content("Employees with DOB less than 01-01-2000: " + string.Join(", ", employees));
+                //return Content("Employees with DOB less than 01-01-2000: " + string.Join(", ", employees));
+                ViewBag.Employees = employees;
+                return View();
             }
         }
 
@@ -120,7 +137,9 @@ namespace Task2.Controllers
                 connection.Open();
                 var count = cmd.ExecuteScalar();
                 connection.Close();
-                return Content("Count of employees with NULL Middle Name: " + count.ToString());
+                ViewBag.CountMiddleName = count;
+                return View();
+                //return Content("Count of employees with NULL Middle Name: " + count.ToString());
             }
         }
 
