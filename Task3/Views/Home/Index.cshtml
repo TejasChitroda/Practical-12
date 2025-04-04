@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Task3.RouteConfig>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Employee Record Section -->
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Employee Record</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="d-flex flex-column gap-2">
+                        @Html.ActionLink("Add First Record to Employee", "InsertRecordEmployee", null, new { @class = "btn btn-success fw-bold w-100" })
+                       
+                        @Html.ActionLink("Join Two Tables", "JoinTable", null, new { @class = "btn btn-info fw-bold w-100" })
+                        @Html.ActionLink("Employee Details View", "EmployeeDetailsView", null, new { @class = "btn btn-info fw-bold w-100" })
+                        @Html.ActionLink("Sp Insert Data Ino Employee", "SpInsertDataEmployee", null, new { @class = "btn btn-danger fw-bold w-100" })
+                        @Html.ActionLink("More than One Emp in One Designation", "EmpInDesigMoreThanOne", null, new { @class = "btn btn-danger fw-bold w-100" })
+                        @Html.ActionLink("Sp to Get Employee Details", "SpGetEmployeeDetails", null, new { @class = "btn btn-success fw-bold w-100" })
+                        @Html.ActionLink("Maximun Salary Of Employee", "MaxSalary", null, new { @class = "btn btn-success fw-bold w-100" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Designation Section -->
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-secondary text-white text-center">
+                    <h3>Designation</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="d-flex flex-column gap-2">
+                        @Html.ActionLink("Add First Record To Designation", "InsertRecordDesignation", null, new { @class = "btn btn-success fw-bold w-100" })
+                        @Html.ActionLink("Count Designation", "CountDesignation", null, new { @class = "btn btn-success fw-bold w-100" })
+                        @Html.ActionLink("Sp Insert Data Into Designation", "SpInsertDataDesignation", null, new { @class = "btn btn-info fw-bold w-100" })
+                        @Html.ActionLink("Sp Get Employee By Designation Id", "SpGetEmployeeByDesignationId", null, new { @class = "btn btn-info fw-bold w-100" })
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

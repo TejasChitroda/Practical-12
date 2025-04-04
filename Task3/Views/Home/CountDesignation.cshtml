@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Task3.Models.CountDesignation>
+
+@{
+    ViewBag.Title = "CountDesignation";
+}
+
+<h2>CountDesignation</h2>
+<div class="d-flex flex-column justify-content-center">
+    <table class="table table-bordered table-striped table-hover text-center shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Designation)</th>
+                <th>@Html.DisplayNameFor(model => model.Count)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Designation)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Count)</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary fw-bold px-4" })
+</div>

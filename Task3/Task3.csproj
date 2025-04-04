@@ -99,11 +99,31 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CountDesignation.cs" />
+    <Compile Include="Models\DesignationId.cs" />
+    <Compile Include="Models\Designations.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeDetailsViewModel.cs" />
+    <Compile Include="Models\JoinTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\SpInsertDataDesignation.cshtml" />
+    <Content Include="Views\Home\SpInsertDataEmployee.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\InsertRecordDesignation.cshtml" />
+    <Content Include="Views\Home\InsertRecordEmployee.cshtml" />
+    <Content Include="Views\Home\CountDesignation.cshtml" />
+    <Content Include="Views\Home\JoinTable.cshtml" />
+    <Content Include="Views\Home\EmployeeDetailsView.cshtml" />
+    <Content Include="Views\Home\EmpInDesigMoreThanOne.cshtml" />
+    <Content Include="Views\Home\SpGetEmployeeDetails.cshtml" />
+    <Content Include="Views\Home\MaxSalary.cshtml" />
+    <Content Include="Views\Home\SpGetEmployeeByDesignationId.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -113,8 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
