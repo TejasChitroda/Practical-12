@@ -124,6 +124,7 @@
     <Content Include="Views\Home\SpGetEmployeeDetails.cshtml" />
     <Content Include="Views\Home\MaxSalary.cshtml" />
     <Content Include="Views\Home\SpGetEmployeeByDesignationId.cshtml" />
+    <Content Include="Views\Home\SpGetEmployeeByDesignationIdForView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

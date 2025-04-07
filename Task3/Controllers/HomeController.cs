@@ -278,13 +278,13 @@ namespace Task3.Controllers
         }
 
         [HttpPost]
-        public ActionResult SpGetEmployeeByDesignationId(DesignationId Id)
+        public ActionResult SpGetEmployeeByDesignationId(DesignationId idFeild)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("GetEmployeesByDesignation", connection);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@DesignationId", Convert.ToInt32(Id));
+                cmd.Parameters.AddWithValue("@DesignationId", Convert.ToInt32(idFeild.Identifier));
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 List<EmployeeDetailsViewModel> employeeDetails = new List<EmployeeDetailsViewModel>();
@@ -296,7 +296,6 @@ namespace Task3.Controllers
                         FirstName = reader["FirstName"].ToString(),
                         MiddleName = reader["MiddleName"].ToString(),
                         LastName = reader["LastName"].ToString(),
-                        Designation = reader["Designation"].ToString(),
                         DOB = Convert.ToDateTime(reader["DOB"]),
                         MobileNumber = reader["MobileNumber"].ToString(),
                         Address = reader["Address"].ToString(),
@@ -304,7 +303,7 @@ namespace Task3.Controllers
                     });
                 }
                 connection.Close();
-                return View("EmployeeDetailsView", employeeDetails);
+                return View("SpGetEmployeeByDesignationIdForView", employeeDetails);
             }
         }
 
