@@ -8,13 +8,13 @@ This project contains SQL scripts for managing employee records across three tas
 
 -- Create the database
 
-CREATE DATABASE Practical12;
+CREATE DATABASE EmployeeDBPractical12;
 
 GO
  
 -- Use the database
 
-USE Practical12;
+USE EmployeeDBPractical12;
 
 GO
 
@@ -88,11 +88,11 @@ VALUES
  
 ## Task 2: Employee Table with Identity and Salary
  
-### Create Table `Employee1`
+### Create Table `EmployeeTask2 `
  
 ```sql
 
-CREATE TABLE Employee1 (
+CREATE TABLE EmployeeTask2  (
 
     Id INT IDENTITY(1,1) PRIMARY KEY,
 
@@ -118,7 +118,7 @@ CREATE TABLE Employee1 (
  
 ```sql
 
-INSERT INTO Employee1 (FirstName, MiddleName, LastName, DOB, MobileNumber, Address, Salary) VALUES 
+INSERT INTO EmployeeTask2 (FirstName, MiddleName, LastName, DOB, MobileNumber, Address, Salary) VALUES 
 
 ('John', 'A', 'Doe', '1990-05-21', '9876543210', 'New York', 50000.00),
 
@@ -144,15 +144,15 @@ INSERT INTO Employee1 (FirstName, MiddleName, LastName, DOB, MobileNumber, Addre
  
 ## Task 3: Employee with Designation (Foreign Key Relationship)
  
-### Create `Designation` Table
+### Create `DesignationTask3` Table
  
 ```sql
 
-CREATE TABLE Designation (
+CREATE TABLE DesignationTask3 (
 
     Id INT PRIMARY KEY IDENTITY(1,1),
 
-    DesignationName VARCHAR(50) NOT NULL
+    Designation VARCHAR(50) NOT NULL
 
 );
 
@@ -162,7 +162,7 @@ CREATE TABLE Designation (
  
 ```sql
 
-INSERT INTO Designation (DesignationName) 
+INSERT INTO DesignationTask3 (Designation) 
 
 VALUES ('Software Engineer'), ('Project Manager'), ('HR');
 
@@ -172,7 +172,7 @@ VALUES ('Software Engineer'), ('Project Manager'), ('HR');
  
 ```sql
 
-CREATE TABLE Employee2 (
+CREATE TABLE EmployeeTask3 (
 
     Id INT PRIMARY KEY IDENTITY(1,1),
 
@@ -198,11 +198,11 @@ CREATE TABLE Employee2 (
 
 ```
  
-### Insert Records into `Employee2`
+### Insert Records into `EmployeeTask3`
  
 ```sql
 
-INSERT INTO Employee2 (FirstName, MiddleName, LastName, DOB, MobileNumber, Address, Salary, DesignationId) 
+INSERT INTO EmployeeTask3 (FirstName, MiddleName, LastName, DOB, MobileNumber, Address, Salary, DesignationId) 
 
 VALUES 
 
@@ -224,33 +224,21 @@ VALUES
 
 CREATE VIEW EmployeeDetailsView AS
 
+CREATE VIEW EmployeeDetailsView AS
 SELECT 
-
     e.Id, 
-
     e.FirstName, 
-
     e.MiddleName, 
-
     e.LastName, 
-
-    d.DesignationName, 
-
+    d.Designation, 
     e.DOB, 
-
     e.MobileNumber, 
-
     e.Address, 
-
     e.Salary
-
 FROM 
-
-    Employee2 e
-
+    EmployeeTask3 e
 JOIN 
-
-    Designation d ON e.DesignationId = d.Id;
+    DesignationTask3 d ON e.DesignationId = d.Id;
 
 ```
  
@@ -259,31 +247,19 @@ JOIN
 ```sql
 
 CREATE PROCEDURE InsertEmployee  
-
     @FirstName VARCHAR(50),  
-
     @MiddleName VARCHAR(50) NULL,  
-
     @LastName VARCHAR(50),  
-
     @DesignationId INT,  
-
     @DOB DATE,  
-
     @MobileNumber VARCHAR(15),  
-
     @Address VARCHAR(255),  
-
     @Salary DECIMAL(10,2)  
-
 AS  
-
 BEGIN  
-
-    INSERT INTO Employee2 (FirstName, MiddleName, LastName, DesignationId, DOB, MobileNumber, Address, Salary)  
-
+    SET NOCOUNT ON;  
+    INSERT INTO EmployeeTask3 (FirstName, MiddleName, LastName, DesignationId, DOB, MobileNumber, Address, Salary)  
     VALUES (@FirstName, @MiddleName, @LastName, @DesignationId, @DOB, @MobileNumber, @Address, @Salary);  
-
 END;
 
 ```
@@ -293,17 +269,11 @@ END;
 ```sql
 
 CREATE PROCEDURE InsertDesignation
-
-    @DesignationName VARCHAR(50)  
-
+    @Designation VARCHAR(50)  
 AS  
-
 BEGIN  
-
-    INSERT INTO Designation (DesignationName)  
-
-    VALUES (@DesignationName);  
-
+    INSERT INTO DesignationTask3(Designation)  
+    VALUES (@Designation);  
 END;
 
 ```
@@ -313,39 +283,22 @@ END;
 ```sql
 
 CREATE PROCEDURE GetAllEmployees  
-
 AS  
-
 BEGIN  
-
     SELECT  
-
         E.Id,  
-
         E.FirstName,  
-
         E.MiddleName,  
-
         E.LastName,  
-
-        D.DesignationName,  
-
+        D.Designation,  
         E.DOB,  
-
         E.MobileNumber,  
-
         E.Address,  
-
         E.Salary  
-
-    FROM Employee2 E  
-
-    INNER JOIN Designation D ON E.DesignationId = D.Id  
-
+    FROM EmployeeTask3 E  
+    INNER JOIN DesignationTask3 D ON E.DesignationId = D.Id  
     ORDER BY E.DOB;  
-
 END;
-
 ```
  
 ### Get Employees By Designation Procedure
@@ -353,37 +306,21 @@ END;
 ```sql
 
 CREATE PROCEDURE GetEmployeesByDesignation  
-
     @DesignationId INT  
-
 AS  
-
 BEGIN  
-
     SELECT  
-
         E.Id,  
-
         E.FirstName,  
-
         E.MiddleName,  
-
         E.LastName,  
-
         E.DOB,  
-
         E.MobileNumber,  
-
         E.Address,  
-
         E.Salary  
-
-    FROM Employee2 E  
-
+    FROM EmployeeTask3 E  
     WHERE E.DesignationId = @DesignationId  
-
     ORDER BY E.FirstName;  
-
 END;
 
 ```
@@ -395,9 +332,7 @@ END;
 ```sql
 
 CREATE NONCLUSTERED INDEX IX_Employee_DesignationId
-
-ON Employee2(DesignationId);
-
+ON EmployeeTask3 (DesignationId);
 ```
 
  
